@@ -1,0 +1,17 @@
+{
+    "modules": [
+      {
+        "name": "output_module",
+        "num_channels": 4,
+        "start_address": 0,
+        "end_address": 3
+      },
+      {
+        "name": "input_module",
+        "num_channels": 4,
+        "start_address": 10,
+        "end_address": 13
+      }
+    ]
+  }
+  

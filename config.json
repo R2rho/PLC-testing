@@ -1,0 +1,178 @@
+{
+  "modules": [
+      {
+          "index": 1,
+          "item_number": "750-5xx",
+          "num_channels": 2,
+          "coils": [
+              {
+                  "type": "output",
+                  "channel": 1,
+                  "addresses": [
+                      {
+                          "access": "WO",
+                          "value": 0
+                      },
+                      {
+                          "access": "RW",
+                          "value": 512
+                      }
+                  ]
+              },
+              {
+                  "type": "output",
+                  "channel": 2,
+                  "addresses": [
+                      {
+                          "access": "WO",
+                          "value": 1
+                      },
+                      {
+                          "access": "RW",
+                          "value": 513
+                      }
+                  ]
+              }
+          ],
+          "registers": [
+            {
+              "type": "output",
+              "addresses": [
+                  {
+                      "access": "WO",
+                      "value": 0,
+                      "bits": [0,1]
+                  }
+              ]
+          },
+          {
+            "type": "output",
+            "addresses": [
+                {
+                    "access": "RW",
+                    "value": 512,
+                    "bits": [0,1]
+                }
+            ]
+        }
+          ]
+      },
+      {
+          "index": 2,
+          "item_number": "750-4xx",
+          "num_channels": 4,
+          "coils": [
+              {
+                  "type": "input",
+                  "channel": 1,
+                  "addresses": [
+                      {
+                          "access": "RO",
+                          "value": 0
+                      }
+                  ]
+              },
+              {
+                  "type": "input",
+                  "channel": 2,
+                  "addresses": [
+                      {
+                          "access": "RO",
+                          "value": 1
+                      }
+                  ]
+              },
+              {
+                  "type": "input",
+                  "channel": 3,
+                  "addresses": [
+                      {
+                          "access": "RO",
+                          "value": 2
+                      }
+                  ]
+              },
+              {
+                  "type": "input",
+                  "channel": 4,
+                  "addresses": [
+                      {
+                          "access": "RO",
+                          "value": 3
+                      }
+                  ]
+              }
+          ],
+          "registers": [
+            {
+                "type": "input",
+                "addresses": [
+                    {
+                        "access": "RO",
+                        "value": 4,
+                        "bits": [0,1,2,3]
+                    }
+                ]
+            }
+        ]
+      },
+      {
+        "index": 3,
+        "item_number": "750-468/000-000",
+        "num_channels": 4,
+        "coils": [],
+        "registers": [
+          {
+            "type": "input",
+            "addresses": [
+              {
+                "access": "RO",
+                "value": 0,
+                "bits": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+              }
+            ]
+          },
+          {
+            "type": "input",
+            "addresses": [
+              {
+                "access": "RO",
+                "value": 0,
+                "bits": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+              }
+            ]
+          },
+          {
+            "type": "input",
+            "addresses": [
+              {
+                "access": "RO",
+                "value": 1,
+                "bits": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+              }
+            ]
+          },
+          {
+            "type": "input",
+            "addresses": [
+              {
+                "access": "RO",
+                "value": 2,
+                "bits": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+              }
+            ]
+          },
+          {
+            "type": "input",
+            "addresses": [
+              {
+                "access": "RO",
+                "value": 3,
+                "bits": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+              }
+            ]
+          }
+        ]
+      }
+  ]
+}

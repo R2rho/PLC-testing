@@ -12,44 +12,64 @@ enum State {
 }
 
 const SERVER_HOST: &str = "192.168.20.50:502"; // replace with your actual port number
-const CW_COIL: u16 = 0;  // Cool White coil address
-const WW_COIL: u16 = 1;  // Warm White coil address
+const CW_COIL: u16 = 512;  // Cool White coil address
+const WW_COIL: u16 = 513;  // Warm White coil address
+const DELAY: f64 = 0.75; //Duration of delay between light cycles 
 
 async fn control_coil(context: &mut Context, coil: u16, desired_state: State) -> Result<(), Error> {
     let current_state = context.read_coils(coil, 10).await?;
+    // let c_state = context.read_coils(arg1, arg2)
     // println!("Current state: {:?}", current_state);
-
-    match desired_state {
+    
+    let new_state: bool = match desired_state {
         State::Off => {
-            context.write_single_coil(coil, true).await?;
+           false
         },
         State::On => {
-            context.write_single_coil(coil, false).await?;
+            true
         },
         State::Toggle => {
-            context.write_single_coil(coil, !current_state[0]).await?;
+            if current_state[0] {false} else {true}
         },
-    }
+    };
+    // println!("Coil: {}, Current State: {}, New State: {}",coil,current_state[0],new_state);
+    context.write_single_coil(coil, new_state).await?;
     // let new_state = context.read_coils(coil, 1).await?;
     // println!("New state: {:?}, NOT current_state: {}", new_state, !current_state[0]);
     Ok(())
 }
 
 async fn cycle_leds(context: &mut Context) -> Result<(), Error> {
-    // Turn on CW LED and wait for 2 seconds
+    
     let addr: SocketAddr = SERVER_HOST.parse().unwrap();
     *context = tcp::connect(addr).await?;
-    println!("COOL WHITE");
-    control_coil(context, CW_COIL, State::On).await?;
-    sleep(Duration::from_secs(2)).await;
-    control_coil(context, CW_COIL, State::Off).await?;
-    
 
-    // Turn on WW LED and wait for 2 seconds
+    // Turn on CW LED and wait for 2 seconds then turn off
+    control_coil(context, CW_COIL, State::Toggle).await?;
+    sleep(Duration::from_secs_f64(DELAY)).await;
+    control_coil(context, CW_COIL, State::Toggle).await?;   
+
+    // Turn on WW LED and wait for 2 seconds then turn off
     println!("WARM WHITE");
-    control_coil(context, WW_COIL, State::On).await?;
-    sleep(Duration::from_secs(2)).await;
-    control_coil(context, WW_COIL, State::Off).await?;
+    control_coil(context, WW_COIL, State::Toggle).await?;
+    sleep(Duration::from_secs_f64(DELAY)).await;
+    control_coil(context, WW_COIL, State::Toggle).await?;
+
+
+    
+    // println!("COOL WHITE");
+
+    // // Turn on CW LED and wait for 2 seconds then turn off
+    // control_coil(context, CW_COIL, State::On).await?;
+    // sleep(Duration::from_secs_f64(DELAY)).await;
+    // control_coil(context, CW_COIL, State::Off).await?;   
+
+    // // Turn on WW LED and wait for 2 seconds then turn off
+    // println!("WARM WHITE");
+    // control_coil(context, WW_COIL, State::On).await?;
+    // sleep(Duration::from_secs_f64(DELAY)).await;
+    // control_coil(context, WW_COIL, State::Off).await?;
+
     context.disconnect().await?;
     Ok(())
 }
